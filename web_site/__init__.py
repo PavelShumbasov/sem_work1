@@ -18,8 +18,8 @@ def create_app(params=None):
         app.config["DATABASE"] = params['DATABASE']
         app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-        # app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:daredevil1703@localhost:5432/task_boards'
+        # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+        app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:daredevil1703@localhost:5432/task_boards'
     db.init_app(app)
     migrate.init_app(app, db)
 
