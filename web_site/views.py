@@ -78,7 +78,7 @@ def delete_task(id):
 @views.route("/find_board", methods=['GET', 'POST'])
 def find_board():
     name = request.form['name']
-    query = f'SELECT * FROM board WHERE name == "{name}"'
+    query = f"SELECT * FROM board WHERE name = '{name}';"
     result = list(db.engine.execute(query))
     if result:
         path = "views.view_board"
