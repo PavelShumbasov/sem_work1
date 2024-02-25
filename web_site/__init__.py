@@ -1,4 +1,4 @@
-from flask import Flask, url_for
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 DB_NAME = "database.db"
 migrate = Migrate()
-POSTGRES_DB = 'postgresql://postgres:daredevil1703@localhost:5432/task_boards'
+SQLITE_DB = 'sqlite:///{}'.format(path.join(path.dirname(__file__), 'database.db'))
 
 
 def create_app(params=None):
@@ -19,8 +19,7 @@ def create_app(params=None):
         app.config["DATABASE"] = params['DATABASE']
         app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
     else:
-        # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-        app.config['SQLALCHEMY_DATABASE_URI'] = POSTGRES_DB
+        app.config['SQLALCHEMY_DATABASE_URI'] = SQLITE_DB
     db.init_app(app)
     migrate.init_app(app, db)
 
@@ -46,5 +45,5 @@ def create_app(params=None):
 
 
 def create_database(app):
-    if not path.exists("website/" + DB_NAME):
+    if not path.exists("web_site/" + 'database.db'):
         db.create_all(app=app)

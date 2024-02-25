@@ -53,8 +53,8 @@ def sign_up():
         elif len(email) < 4:
             flash("Email is invalid.", category='alert alert-danger')
         else:
-            new_user = User(email=email, username=username, password=generate_password_hash(
-                password1, method='sha256'))
+            new_user = User(email=email, username=username, password=generate_password_hash(password1))
+
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
@@ -99,7 +99,7 @@ def edit_profile():
         else:
             current_user.email = email
             current_user.username = username
-            current_user.password = generate_password_hash(password1, method='sha256')
+            current_user.password = generate_password_hash(password1)
             db.session.commit()
             login_user(current_user, remember=True)
             flash('User updated!', category="alert alert-info")
